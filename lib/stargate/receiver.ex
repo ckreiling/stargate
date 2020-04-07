@@ -121,7 +121,7 @@ defmodule Stargate.Receiver do
     type = Keyword.fetch!(args, :type)
     registry = Keyword.fetch!(args, :registry)
     query_params_config = Keyword.get(args, :query_params)
-    user_provided_server_opts = Keyword.fetch!(args, :web_socketex_opts)
+    user_provided_server_opts = Keyword.get(args, :web_socketex_opts, [])
 
     query_params =
       case type do
@@ -141,9 +141,8 @@ defmodule Stargate.Receiver do
       |> (fn fields -> struct(State, fields) end).()
 
     server_opts =
-      user_provided_server_opts
-      |> Stargate.Connection.web_socketex_settings()
-      |> Keyword.put(
+      Keyword.put_new(
+        user_provided_server_opts,
         :name,
         via(state.registry, :"sg_#{type}_#{state.tenant}_#{state.namespace}_#{state.topic}")
       )

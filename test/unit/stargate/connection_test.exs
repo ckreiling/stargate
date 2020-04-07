@@ -55,21 +55,6 @@ defmodule Stargate.ConnectionTest do
     end
   end
 
-  describe "web_socketex settings" do
-    test "gets the allowed settings" do
-      extra_headers = [{"Authorization", "Bearer sasdf"}]
-
-      init_args = [
-        extra_headers: extra_headers,
-        something: "else"
-      ]
-
-      assert [
-               extra_headers: extra_headers
-             ] == Stargate.Connection.web_socketex_settings(init_args)
-    end
-  end
-
   defp kill(pid) do
     ref = Process.monitor(pid)
     Process.exit(pid, :normal)

@@ -90,14 +90,6 @@ defmodule Stargate.Connection do
     }
   end
 
-  @doc """
-  Fetches the allowed `t:WebSocketex.options/0` from the keyword list.
-  """
-  @spec web_socketex_settings(keyword()) :: keyword()
-  def web_socketex_settings(opts) do
-    Keyword.take(opts, [:extra_headers, :cacerts, :insecure])
-  end
-
   defp format_host([{host, port}]), do: "#{host}:#{port}"
   defp format_host({host, port}), do: "#{host}:#{port}"
   defp format_host(connection) when is_binary(connection), do: connection
