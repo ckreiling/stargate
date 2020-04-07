@@ -91,21 +91,11 @@ defmodule Stargate.Connection do
   end
 
   @doc """
-  Parses the keyword list configuration passed to a websocket and constructs the
-  authentication options, either SSL or token-based, to be passed to the websocket
-  process.
+  Fetches the allowed `t:WebSocketex.options/0` from the keyword list.
   """
-  @spec auth_settings(keyword()) :: keyword()
-  def auth_settings(opts) do
-    opts
-    |> Keyword.take([:ssl_options, :auth_token])
-    |> Enum.map(&transform_auth/1)
-  end
-
-  defp transform_auth({:ssl_options, _opts} = ssl_opts), do: ssl_opts
-
-  defp transform_auth({:auth_token, token}) do
-    {:extra_headers, [{"Authorization", "Bearer " <> token}]}
+  @spec web_socketex_settings(keyword()) :: keyword()
+  def web_socketex_settings(opts) do
+    Keyword.take(opts, [:extra_headers, :cacerts, :insecure])
   end
 
   defp format_host([{host, port}]), do: "#{host}:#{port}"

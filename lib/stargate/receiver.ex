@@ -141,7 +141,7 @@ defmodule Stargate.Receiver do
 
     server_opts =
       args
-      |> Stargate.Connection.auth_settings()
+      |> Stargate.Connection.web_socketex_settings()
       |> Keyword.put(
         :name,
         via(state.registry, :"sg_#{type}_#{state.tenant}_#{state.namespace}_#{state.topic}")

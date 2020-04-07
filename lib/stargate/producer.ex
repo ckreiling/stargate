@@ -204,7 +204,7 @@ defmodule Stargate.Producer do
 
     server_opts =
       args
-      |> Stargate.Connection.auth_settings()
+      |> Stargate.Connection.web_socketex_settings()
       |> Keyword.put(
         :name,
         via(state.registry, :"sg_prod_#{state.tenant}_#{state.namespace}_#{state.topic}")
